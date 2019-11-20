@@ -1,0 +1,10 @@
+<oj-form-layout id="form-container">
+    <oj-input-text value="ID number" label-hint="Item ID"></oj-input-text>
+    <oj-input-text value="Name" label-hint="Item Name"></oj-input-text>
+    <oj-input-text value="{{currency}}" help.instruction="enter an amount with or without grouping separator" 
+                    converter= '{
+                      "type":"number",
+                      "options":{"style": "currency", "currency": "USD",
+                      "currencyDisplay": "code", "pattern": "¤ ##,##0.00"}}' label-hint="Item Price"></oj-input-text>
+    <oj-input-text value="{{lengthValue1}}" validators="[[validators]]" autocomplete="off" placeholder="between 5-50 characters" label-hint="Item Description"></oj-input-text>
+  </oj-form-layout>
