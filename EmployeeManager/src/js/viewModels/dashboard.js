@@ -6,11 +6,75 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define([],
- function() {
+define(['ojs/ojcore', 'knockout', 'jquery', 'text!../endpoints.json', 'ojs/ojchart', 'ojs/ojdatagrid', 'ojs/ojcollectiondatagriddatasource', 'ojs/ojinputtext', 'ojs/ojformlayout'],
+ function(oj, ko, $, endpoints) {
 
     function DashboardViewModel() {
       var self = this;
+
+      self.url = JSON.parse(endpoints).employees;
+
+      self.collection = new oj.Collection(null, {
+          model: new oj.Model.extend({
+              idAttribute: 'id',
+              urlRoot: self.url}),
+          url: self.url
+      });
+      
+      self.dataSource = new oj.CollectionDataGridDataSource(
+         self.collection, {
+            rowHeader: 'id',
+            columns: ['FIRST_NAME', 'LAST_NAME', 'HIRE_DATE', 'SALARY']
+      });
+
+      var nextKey = 121;
+      self.inputEmployeeID = ko.observable(nextKey);
+      self.inputFirstName = ko.observable();
+      self.inputLastName = ko.observable();
+      self.inputHireDate = ko.observable();
+      self.inputSalary = ko.observable();
+
+      self.buildModel = function() {
+        return {
+          'id': self.inputEmployeeID(),
+          'FIRST_NAME': self.inputFirstName(),
+          'LAST_NAME': self.inputLastName(),
+          'HIRE_DATE': self.inputHireDate(),
+          'SALARY': self.inputSalary()
+        };
+      };
+
+      self.updateFields = function(model){
+        self.inputEmployeeID(model.get('id'));
+        self.inputFirstName(model.get('FIRST_NAME'));
+        self.inputLastName(model.get('LAST_NAME'));
+        self.inputHireDate(model.get('HIRE_DATE'));
+        self.inputSalary(model.get('SALARY'));
+      };
+
+      self.handleSelectionChanged = function(event){
+        var selection = event.detail['value'][0];
+        if(selection != null){
+          var rowKey = selection['startKey']['row'];
+          self.modelToUpdate = self.collection.get(rowKey);
+          self.updateFields(self.modelToUpdate);
+        }
+      };
+
+      self.stackValue = ko.observable('off');
+      self.orientationValue = ko.observable('vertical');
+      
+
+      var barSeries = [{name: "Series 1", items: [42, 34]},
+                      {name: "Series 2", items: [55, 30]},
+                      {name: "Series 3", items: [36, 50]},
+                      {name: "Series 4", items: [22, 46]},
+                      {name: "Series 5", items: [22, 46]}];
+
+      var barGroups = ["Group A", "Group B"];
+
+      self.barSeriesValue = ko.observableArray(barSeries);
+      self.barGroupsValue = ko.observableArray(barGroups);
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
 
