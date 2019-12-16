@@ -6,11 +6,27 @@
 /*
  * Your incidents ViewModel code goes here
  */
-define([],
- function() {
+define(['ojs/ojcore', 'knockout', 'jquery', 'text!../endpoints.json', 'my-employee-form-container/loader'],
+ function(oj, ko, $, endpoints) {
 
     function IncidentsViewModel() {
       var self = this;
+
+      self.employees = ko.observableArray();
+      $.getJSON("http://localhost:3000/employees").
+              then(function (data) {
+                  var tempArray = [];
+                  $.each(data, function () {
+                      tempArray.push({
+                          empno: this.id,
+                          name: this.FIRST_NAME,
+                          lastname: this.LAST_NAME,
+                          hiredate: this.HIRE_DATE,
+                          salary: this.SALARY
+                      });
+                  });
+                  self.employees(tempArray);
+              });
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
 
