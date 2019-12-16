@@ -6,7 +6,11 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'text!../endpoints.json', 'ojs/ojchart', 'ojs/ojdatagrid', 'ojs/ojcollectiondatagriddatasource', 'ojs/ojinputtext', 'ojs/ojformlayout'],
+define(['ojs/ojcore', 'knockout', 'jquery', 
+    'text!../endpoints.json',
+    'ojs/ojdatagrid', 
+    'ojs/ojcollectiondatagriddatasource',
+    'my-employee-form/loader'],
  function(oj, ko, $, endpoints) {
 
     function DashboardViewModel() {
