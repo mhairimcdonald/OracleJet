@@ -5,7 +5,6 @@
 <div class="oj-hybrid-padding">
   <h1>Dashboard Content Area</h1>
   <div>
-      To change the content of this section, you will make edits to the dashboard.html file located in the /js/views folder.
   </div>
  <!-- <oj-chart id="barChart"
     type="bar" 
@@ -35,6 +34,14 @@
     header.column.style="width:100px"
     on-selection-changed="[[handleSelectionChanged]]" > 
   </oj-data-grid>
-  <my-employee-form first-name='[[inputFirstName]]' last-name='[[inputLastName]]'></my-employee-form>
+  <my-employee-form 
+    first-name='{{inputFirstName}}' 
+    last-name='{{inputLastName}}' 
+    hire-date='{{inputHireDate}}' 
+    hire-salary='{{inputSalary}}'>
+    <span slot="toolbar">
+      <oj-button on-oj-action="[[update]]">Update</oj-button>
+    </span>
+  </my-employee-form>
 
 </div>

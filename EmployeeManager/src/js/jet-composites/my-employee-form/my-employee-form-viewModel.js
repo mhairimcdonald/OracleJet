@@ -4,7 +4,7 @@
 */
 'use strict';
 define(
-    ['knockout', 'jquery', 'ojL10n!./resources/nls/my-employee-form-strings', 'ojs/ojinputtext', 'ojs/ojformlayout'], function (ko, $, componentStrings) {
+    ['knockout', 'jquery', 'ojL10n!./resources/nls/my-employee-form-strings', 'ojs/ojinputtext', 'ojs/ojformlayout', 'my-employee-form/loader','ojs/ojbutton'], function (ko, $, componentStrings) {
     
     function ExampleComponentModel(context) {
         var self = this;

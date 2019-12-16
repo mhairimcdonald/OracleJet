@@ -65,6 +65,19 @@ define(['ojs/ojcore', 'knockout', 'jquery',
         }
       };
 
+      self.update = function () {
+        self.empl = self.collection.get(self.inputEmployeeID());
+        self.empl.save(self.buildModel(), {
+            contentType: 'application/json',
+            success: function (model, response) {
+                console.log(self.inputEmployeeID() + ' -- updated successfully')
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(self.inputEmployeeID() + " -- " + jqXHR);
+            }
+        });
+    };
+
       self.stackValue = ko.observable('off');
       self.orientationValue = ko.observable('vertical');
       

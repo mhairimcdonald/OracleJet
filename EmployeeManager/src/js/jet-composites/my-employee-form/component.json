@@ -6,16 +6,20 @@
   "description": "A translatable high-level description for the component.",
   "properties": {
      "firstName": {
-         "type":"string"
+         "type":"string",
+         "writeback": "true"
       },
       "lastName": {
-         "type":"string"
+         "type":"string",
+         "writeback": "true"
        },
        "hireDate": {
-          "type":"string"
+          "type":"string",
+          "writeback": "true"
        },
        "hireSalary": {
-           "type":"number"
+           "type":"number",
+           "writeback": "true"
        }
 
     },
@@ -26,6 +30,8 @@
 
   }, 
   "slots": {
-
+    "toolbar": {
+      "description":"Toolbar placed below employee form."
+  }
   }
 }
