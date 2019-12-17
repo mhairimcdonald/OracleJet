@@ -12,6 +12,22 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils'],
     function DashboardViewModel() {
       var self = this;
 
+      self.pics = ko.observableArray();
+      self.buttonClick = function(){
+        navigator.camera.getPicture(
+          uploadPhoto,
+          function(err){},
+          {
+            quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI
+          }
+        );
+      };
+
+      function uploadPhoto(imageURI) {
+        self.pics.push(imageURI);
+      }
+
       // Header Config
       self.headerConfig = ko.observable({'view':[], 'viewModel':null});
       moduleUtils.createView({'viewPath':'views/header.html'}).then(function(view) {

@@ -18,10 +18,20 @@
     <div role="main" class="oj-hybrid-applayout-content">
       <div class="oj-hybrid-padding">
         <h1>Dashboard Content Area</h1>
-        <div>
-            To change the content of this section, you will make edits to the dashboard.html file located in the /js/views folder.
+        <div class="oj-bybrid-padding">
+          <div>
+            <!-- Following renders the button that the user taps to invoke the camera -->
+            <oj-button id='TakePhoto' on-oj-action='[[buttonClick]]'>Take Picture</oj-button>
+            <br>
+            <!-- Following renders a list where the pictures from the device camera will appear-->
+            <ul data-bind="foreach: pics" class="oj-flex oj-flex-items-pad">
+              <li style="list-style: none" class="oj-flex-item">
+                <input type="image" style="border:1px solid black" data-bind="attr:{scr: $data}" width="250" height="250" alt="No picture taken."/>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div> 
