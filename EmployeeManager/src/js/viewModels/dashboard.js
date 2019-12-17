@@ -86,6 +86,12 @@ define(['ojs/ojcore', 'knockout', 'jquery',
         });
     };
 
+    self.dashboardHeaderLabel = ko.observable(oj.Translations.getTranslatedString('dashboardHeader'));
+
+    document.addEventListener("localeListener", function () {
+      self.dashboardHeaderLabel(oj.Translations.getTranslatedString('dashboardHeader'));
+    });
+
       self.stackValue = ko.observable('off');
       self.orientationValue = ko.observable('vertical');
       

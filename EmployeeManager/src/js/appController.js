@@ -12,6 +12,28 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
      function ControllerViewModel() {
        var self = this;
 
+       self.dashboardLabel = ko.observable(oj.Translations.getTranslatedString('dashboardLabel'));
+
+       self.setLangAction = function (event) {
+         var newLang = event.target.value;
+         oj.Config.setLocale(newLang,
+          function() {
+            $('html').attr('lang', newLang);
+            if(newLang == 'ar-EG'){
+              $('html').attr('dir', 'rtl');
+            } else {
+              $('html').attr('dir', 'ltr');
+            }
+            self.dashboardLabel(oj.Translations.getTranslatedString('dashboardLabel'));
+            var params = {
+              'bubbles': true,
+              'detail': {'message': self.dashboardLabel()}
+            };
+            document.addEventListener("localeListener", function (event) {
+              console.log('EventValue: ' + event.detail.message);
+          }); 
+       });
+
        this.KnockoutTemplateUtils = KnockoutTemplateUtils;
 
       // Media queries for repsonsive layouts
@@ -51,7 +73,7 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
 
       // Navigation setup
       var navData = [
-      {name: 'Dashboard', id: 'dashboard',
+      {name: self.dashboardLabel, id: 'dashboard',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'},
       {name: 'Incidents', id: 'incidents',
        iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-fire-icon-24'},
@@ -100,4 +122,4 @@ define(['knockout', 'ojs/ojmodule-element-utils', 'ojs/ojknockouttemplateutils',
 
      return new ControllerViewModel();
   }
-);
+  });

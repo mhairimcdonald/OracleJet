@@ -3,27 +3,9 @@
  The Universal Permissive License (UPL), Version 1.0
  -->
 <div class="oj-hybrid-padding">
-  <h1>Dashboard Content Area</h1>
+  <h1><oj-bind-text value="[[dashboardHeaderLabel]]"></oj-bind-text></h1>>
   <div>
   </div>
- <!-- <oj-chart id="barChart"
-    type="bar" 
-    orientation="[[orientationValue]]"
-    stack="[[stackValue]]"
-    series="[[barSeriesValue]]"
-    groups="[[barGroupsValue]]"
-    animation-on-display="auto"
-    animation-on-data-change="auto"
-    hover-behavior="dim"
-    style="max-width:500px;width:100%;height:350px;">
-
-    <template slot='itemTemplate' data-oj-as='item'>
-      <oj-chart-item 
-        value='[[item.data.value]]' 
-        group-id='[[ [item.data.group] ]]' 
-        series-id='[[item.data.series]]'> 
-      </oj-chart-item>-->
-    </template>
   </oj-chart>
   <oj-data-grid 
     id="datagrid" 

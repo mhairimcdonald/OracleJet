@@ -35,6 +35,13 @@ requirejs.config(
     'touchr': 'libs/touchr/touchr'
   }
   //endinjector
+  ,config: {
+    ojL10n: {
+      merge: {
+        'ojtranslations/nls/ojtranslations': 'resources/nls/l10'
+      }
+    }
+  }
 }
 );
 
