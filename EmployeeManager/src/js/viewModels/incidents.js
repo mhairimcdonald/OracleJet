@@ -57,6 +57,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'text!../endpoints.json', '../factor
         return (deptName.toLowerCase().indexOf(value.toLowerCase()) > -1);
       };
 
+
       self.dataSource = oj.KnockoutUtils.map(self.collection, null, true);
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
