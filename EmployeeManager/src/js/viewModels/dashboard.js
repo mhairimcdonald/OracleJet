@@ -7,18 +7,18 @@
  * Your dashboard ViewModel code goes here
  */
 define(['ojs/ojcore', 'knockout', 'jquery', 
-    'text!../endpoints.json',
+    'text!../endpoints.json', '../factories/EmployeeFactory',
     'ojs/ojdatagrid', 
     'ojs/ojcollectiondatagriddatasource',
     'my-employee-form/loader'],
- function(oj, ko, $, endpoints) {
+ function(oj, ko, $, endpoints, EmployeeFactory) {
 
     function DashboardViewModel() {
       var self = this;
 
       self.url = JSON.parse(endpoints).employees;
 
-      self.collection = new oj.Collection(null, {
+/*       self.collection = new oj.Collection(null, {
           model: new oj.Model.extend({
               idAttribute: 'id',
               urlRoot: self.url}),
@@ -29,7 +29,15 @@ define(['ojs/ojcore', 'knockout', 'jquery',
          self.collection, {
             rowHeader: 'id',
             columns: ['FIRST_NAME', 'LAST_NAME', 'HIRE_DATE', 'SALARY']
-      });
+      }); */
+
+      self.collection = EmployeeFactory.createEmployeeCollection();
+      self.dataSource = new oj.CollectionDataGridDataSource(
+        self.collection, {
+          rowHeader: 'is',
+          columns: ['FIRST_NAME', 'LAST_NAME', 'HIRE_DATE', 'SALARY']
+        }
+      );
 
       var nextKey = 121;
       self.inputEmployeeID = ko.observable(nextKey);

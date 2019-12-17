@@ -6,8 +6,8 @@
 /*
  * Your incidents ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'text!../endpoints.json', 'my-employee-form-container/loader'],
- function(oj, ko, $, endpoints) {
+define(['ojs/ojcore', 'knockout', 'jquery', 'text!../endpoints.json', '../factories/EmployeeFactory', 'my-employee-form-container/loader', 'ojs/ojknockout-model'],
+ function(oj, ko, $, endpoints, EmployeeFactory) {
 
     function IncidentsViewModel() {
       var self = this;
@@ -27,6 +27,37 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'text!../endpoints.json', 'my-employ
                   });
                   self.employees(tempArray);
               });
+      
+      self.collection = EmployeeFactory.createEmployeeCollection();
+      self.collection.fetch();
+
+      self.filter = ko.observableArray('');
+
+      self.filterChanges = function(event){
+        var filter = event.target.rawValue;
+        var filteredCollection = self.collection;
+        if (self.originalCollection == undefined && filter !== undefined){
+          self.originalCollection = filteredCollection.clone();
+        }
+        var ret = 
+          self.originalCollection !== undefined ?
+          self.originalCollection.where({FIRST_NAME: {value: filter, comporator: self.nameFilter}}) : [];
+        if(ret.length == 0){
+          while(!filteredCollection.isEmpty()){
+            filteredCollection.pop();
+          }
+        } else {
+          filteredCollection.reset(ret);
+          self.dataSource(oj.KnockoutUtils.map(self.collection, null, true)());
+        }
+      };
+
+      self.nameFilter = function(model,attr,value){
+        var deptName = model.get("FIRST_NAME");
+        return (deptName.toLowerCase().indexOf(value.toLowerCase()) > -1);
+      };
+
+      self.dataSource = oj.KnockoutUtils.map(self.collection, null, true);
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
 
