@@ -95,17 +95,6 @@ define(['ojs/ojcore', 'knockout', 'jquery',
       self.stackValue = ko.observable('off');
       self.orientationValue = ko.observable('vertical');
       
-
-      var barSeries = [{name: "Series 1", items: [42, 34]},
-                      {name: "Series 2", items: [55, 30]},
-                      {name: "Series 3", items: [36, 50]},
-                      {name: "Series 4", items: [22, 46]},
-                      {name: "Series 5", items: [22, 46]}];
-
-      var barGroups = ["Group A", "Group B"];
-
-      self.barSeriesValue = ko.observableArray(barSeries);
-      self.barGroupsValue = ko.observableArray(barGroups);
       // Below are a set of the ViewModel methods invoked by the oj-module component.
       // Please reference the oj-module jsDoc for additional information.
 
